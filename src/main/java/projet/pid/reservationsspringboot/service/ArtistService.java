@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import projet.pid.reservationsspringboot.model.Artist;
 import projet.pid.reservationsspringboot.repository.ArtistRepository;
 
+@Service
 public class ArtistService {
   @Autowired
   private ArtistRepository artistRepository;
@@ -17,7 +18,7 @@ public class ArtistService {
     return artists;
   }
 
-  public Artist getArtist(long id) {
+  public Artist getArtist(int id) {
     return artistRepository.findById(id);
   }
 
@@ -25,11 +26,11 @@ public class ArtistService {
     artistRepository.save(artist);
   }
 
-  public void updateArtist(long id, Artist artist) {
+  public void updateArtist(int id, Artist artist) {
     artistRepository.save(artist);
   }
 
-  public void deleteArtist(long id) {
+  public void deleteArtist(int id) {
     artistRepository.deleteById(id);
   }
 }
