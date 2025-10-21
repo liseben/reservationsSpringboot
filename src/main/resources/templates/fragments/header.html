@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Header fragment</title>
+</head>
+<body>
+    <header th:fragment="header">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" th:href="@{/}">Réservations</a>
+            </div>
+            <nav>
+                <ul class="nav">
+                    <li th:classappend="${module == 'home' ? 'active' : ''}">
+                        <a href="#" th:href="@{/}">Accueil</a>
+                    </li>
+                    <li th:classappend="${module == 'artists' ? 'active' : ''}">
+                        <a href="#" th:href="@{/artists}">Artistes</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</body>
+</html>

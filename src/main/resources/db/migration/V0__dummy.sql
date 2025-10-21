@@ -1,0 +1,2 @@
+-- Fichier de migration initial vide
+-- Ceci évite l'erreur Flyway au premier lancement
