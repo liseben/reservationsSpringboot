@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import projet.pid.reservationsspringboot.model.Artist;
 import projet.pid.reservationsspringboot.service.ArtistService;
@@ -34,6 +38,7 @@ public class ArtistController {
         model.addAttribute("title", "Fiche d'un artiste");
         return "artist/show";
     }
+    
 
     @GetMapping("/artists/create")
     public String create(Model model) {
@@ -53,6 +58,45 @@ public class ArtistController {
         }
 
         service.addArtist(artist);
+        return "redirect:/artists/" + artist.getId();
+    }
+
+    @GetMapping("/artists/{id}/edit")
+    public String edit(Model model, 
+                      @PathVariable int id,
+                      HttpServletRequest request) {
+        
+        Artist artist = service.getArtist(id);
+        model.addAttribute("artist", artist);
+        
+        // Lien retour pour annulation
+        String referrer = request.getHeader("Referer");
+        if (referrer != null && !referrer.equals("")) {
+            model.addAttribute("back", referrer);
+        } else {
+            model.addAttribute("back", "/artists/" + artist.getId());
+        }
+        
+        return "artist/edit";
+    }
+    
+    @PutMapping("/artists/{id}/edit")
+    public String update(@Valid @ModelAttribute Artist artist,
+                        BindingResult bindingResult,
+                        @PathVariable int id,
+                        Model model) {
+        
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errorMessage", "Échec de la modification !");
+            return "artist/edit";
+        }
+        
+        Artist existing = service.getArtist(id);
+        if (existing == null) {
+            return "redirect:/artists";
+        }
+        
+        service.updateArtist(id, artist);
         return "redirect:/artists/" + artist.getId();
     }
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Modification d'un artiste</title>
+    <style>
+        .fieldError { color: red; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div layout:fragment="content">
+            <h1 th:text="|Modifier ${artist.firstname} ${artist.lastname}|">Modifier</h1>
+            
+            <div th:if="${errorMessage}" class="alert alert-danger">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            
+            <form th:action="@{/artists/{id}/edit(id=${artist.id})}" 
+                  th:object="${artist}" 
+                  th:method="put">
+                
+                <div>
+                    <label>ID :</label>
+                    <span th:text="${artist.id}">1</span>
+                </div>
+                
+                <div>
+                    <label for="firstname">Prénom :</label>
+                    <input type="text" 
+                           id="firstname"
+                           th:field="*{firstname}" 
+                           maxlength="60" 
+                           required>
+                    <p th:if="${#fields.hasErrors('firstname')}" 
+                       th:errors="*{firstname}" 
+                       class="fieldError"></p>
+                </div>
+                
+                <div>
+                    <label for="lastname">Nom :</label>
+                    <input type="text" 
+                           id="lastname"
+                           th:field="*{lastname}" 
+                           maxlength="60" 
+                           required>
+                    <p th:if="${#fields.hasErrors('lastname')}" 
+                       th:errors="*{lastname}" 
+                       class="fieldError"></p>
+                </div>
+                
+                <div>
+                    <button type="submit">Modifier</button>
+                    <button type="reset">Réinitialiser</button>
+                    <a th:href="${back}">Annuler</a>
+                </div>
+            </form>
+            
+            <nav>
+                <a th:href="@{/artists}">Retour à la liste</a>
+            </nav>
+        </div>
+    </div>
+</body>
+</html>

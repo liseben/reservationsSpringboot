@@ -28,6 +28,7 @@
                         <td th:text="${artist.lastname}">Sull</td>
                         <td>
                             <a th:href="@{/artists/{id}(id=${artist.id})}">Voir</a>
+                            <a th:href="@{/artists/{id}/edit(id=${artist.id})}">Modifier</a>
                         </td>
                     </tr>
                 </tbody>
