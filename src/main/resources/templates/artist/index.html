@@ -9,6 +9,10 @@
     <div class="container">
         <div layout:fragment="content">
             <h1 th:text="${title}">Liste des artistes</h1>
+
+            <div class="actions">
+                <a th:href="@{/artists/create}" class="btn">Ajouter un artiste</a>
+            </div>
             
             <table th:unless="${#lists.isEmpty(artists)}">
                 <thead>
