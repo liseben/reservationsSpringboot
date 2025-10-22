@@ -7,6 +7,10 @@
 </head>
 <body>
     <div class="container">
+        <!-- Inclusion du fragment notification -->
+        <div id="notification" th:replace="~{main :: notification}"></div>
+
+        <!-- Contenu spécifique au template -->
         <div layout:fragment="content">
             <h1 th:text="${title}">Liste des artistes</h1>
 

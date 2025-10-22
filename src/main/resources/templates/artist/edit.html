@@ -10,6 +10,10 @@
 </head>
 <body>
     <div class="container">
+        <!-- Inclusion du fragment notification -->
+        <div id="notification" th:replace="~{main :: notification}"></div>
+
+        
         <div layout:fragment="content">
             <h1 th:text="|Modifier ${artist.firstname} ${artist.lastname}|">Modifier</h1>
             

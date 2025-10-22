@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout">
-<head>
-    <meta charset="utf-8">
-    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Projet Réservations</title>
-    
-    <!-- Bloc CSS personnalisable -->
-    <th:block layout:fragment="css">
-    </th:block>
-</head>
-<body>
-    <!-- Header -->
-    <div th:replace="fragments/header :: header">Header here</div>
-    
-    <!-- Contenu principal -->
-    <div class="container">
-        <div layout:fragment="content">
-            Main content will be inserted here.
+xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout">
+    <head>
+        <meta charset="utf-8">
+        <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Projet Réservations</title>
+        <th:block layout:fragment="css">
+        </th:block>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header">Header here</div>
+        <div class="container">
+            <!-- FRAGMENT DE NOTIFICATION -->
+            <div id="notification" layout:fragment="notification">
+                <!-- Message de succès -->
+                <div th:if="${successMessage}" class="alert alert-success">
+                    <p th:text="${successMessage}"></p>
+                </div>
+                
+                <!-- Message d'erreur -->
+                <div th:if="${errorMessage}" class="alert alert-danger">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+            </div>
+            
+            <!-- Contenu principal de la page -->
+            <div layout:fragment="content">Main content will be inserted here.</div>
         </div>
-    </div>
-    
-    <!-- Footer -->
-    <div th:replace="fragments/footer :: footer">&copy; 2024 Réservations</div>
-    
-    <!-- Bloc Scripts personnalisable -->
-    <th:block layout:fragment="scripts">
-    </th:block>
-</body>
+        
+        <div th:replace="fragments/footer :: footer">&copy; 2016 The Static Templates</div>
+        
+        <th:block layout:fragment="scripts">
+        </th:block>
+    </body>
 </html>
