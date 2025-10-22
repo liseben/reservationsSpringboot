@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+layout:decorate="~{layouts/main}">
+<head>
+<title>Connexion</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Afficher les notifications (erreurs, messages) -->
+        <div id="notification" th:replace="~{main :: notification}"></div>
+        
+        <div layout:fragment="content">
+            <h1>Connexion</h1>
+            
+            <!-- ⚠️ IMPORTANT : Le formulaire DOIT contenir le token CSRF -->
+            <form th:action="@{/login}" method="post">
+                <!-- 🔐 TOKEN CSRF (ajouté automatiquement par Thymeleaf) -->
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                
+                <!-- Champ LOGIN (attention : "login" pas "username") -->
+                <div>
+                    <label for="login">Login:</label>
+                    <input type="text" id="login" name="login" maxlength="60" required>
+                </div>
+                
+                <!-- Champ PASSWORD -->
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" maxlength="60" required>
+                </div>
+                
+                <!-- Bouton SUBMIT -->
+                <div>
+                    <button type="submit" class="btn btn-primary mt-4">Se connecter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

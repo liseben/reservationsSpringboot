@@ -1,21 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr"
-      xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
-      layout:decorate="~{layouts/main}">
+<html lang="fr" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout"
+layout:decorate="~{layouts/main}">
 <head>
-    <title>Accueil</title>
+<title>Accueil</title>
 </head>
 <body>
     <div class="container">
+        <!-- Afficher les notifications -->
+        <div id="notification" th:replace="~{main :: notification}"></div>
+        
         <div layout:fragment="content">
-            <h1>Bienvenue sur le Projet Réservations</h1>
-            <p>Application Spring Boot 3.4.1 avec Thymeleaf</p>
-            <ul>
-                <li>Java 21</li>
-                <li>Spring Boot 3.4.1</li>
-                <li>MySQL 8</li>
-                <li>Maven</li>
-            </ul>
+            <h2>Projet Réservations - Accueil</h2>
+            <p>Bienvenue sur le système de gestion des réservations.</p>
         </div>
     </div>
 </body>

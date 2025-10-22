@@ -1,25 +1,44 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>Header fragment</title>
 </head>
 <body>
-    <header th:fragment="header">
+    <header class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#" th:href="@{/}">Réservations</a>
+                <a class="navbar-brand" href="#">Réservations</a>
             </div>
-            <nav>
-                <ul class="nav">
-                    <li th:classappend="${module == 'home' ? 'active' : ''}">
-                        <a href="#" th:href="@{/}">Accueil</a>
-                    </li>
-                    <li th:classappend="${module == 'artists' ? 'active' : ''}">
-                        <a href="#" th:href="@{/artists}">Artistes</a>
-                    </li>
+            
+            <!-- MENU DE NAVIGATION -->
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/}">Home</a></li>
+                    <li><a href="#" th:href="@{/artists}">Artists</a></li>
                 </ul>
-            </nav>
+            </div>
+
+            <!-- ZONE D'AUTHENTIFICATION À DROITE -->
+            <div style="float:right">
+                <!-- SI NON AUTHENTIFIÉ -->
+                <p sec:authorize="!isAuthenticated()">
+                    Vous n'êtes pas connecté.<br>
+                    <a th:href="@{/login}" class="nav-link">Se connecter</a>
+                </p>
+                
+                <!-- SI AUTHENTIFIÉ -->
+                <div sec:authorize="isAuthenticated()">
+                    <!-- Afficher le login de l'utilisateur -->
+                    <p>Bonjour <span sec:authentication="principal.username">Bob</span>!</p>
+                    
+                    <!-- Formulaire de DÉCONNEXION -->
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="nav-link">Se déconnecter</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </header>
 </body>

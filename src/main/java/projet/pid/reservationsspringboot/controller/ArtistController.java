@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -40,7 +41,9 @@ public class ArtistController {
         return "artist/show";
     }
 
+    // Créer un nouvel artiste : ADMIN seulement
     @GetMapping("/artists/create")
+    @PreAuthorize("hasRole('ADMIN')")
     public String create(Model model) {
         // Ne créer une instance Artist que si elle n'existe pas déjà
         if (!model.containsAttribute("artist")) {
@@ -50,6 +53,7 @@ public class ArtistController {
     }
 
     @PostMapping("/artists/create")
+    @PreAuthorize("hasRole('ADMIN')")
     public String store(@Valid @ModelAttribute Artist artist, BindingResult bindingResult,
             Model model, RedirectAttributes redirAttrs) {
 
@@ -67,7 +71,10 @@ public class ArtistController {
         return "redirect:/artists/" + artist.getId();
     }
 
+    
+    
     @GetMapping("/artists/{id}/edit")
+    @PreAuthorize("hasRole('ADMIN')")
     public String edit(Model model,
             @PathVariable int id,
             HttpServletRequest request) {
@@ -87,6 +94,7 @@ public class ArtistController {
     }
 
     @PutMapping("/artists/{id}/edit")
+    @PreAuthorize("hasRole('ADMIN')")
     public String update(@Valid @ModelAttribute Artist artist,
             BindingResult bindingResult,
             @PathVariable int id,
@@ -111,6 +119,7 @@ public class ArtistController {
     }
 
     @DeleteMapping("/artists/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String delete(@PathVariable int id, Model model, RedirectAttributes redirAttrs) {
 
         // Récupérer l'artiste à supprimer
